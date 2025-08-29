@@ -7,7 +7,7 @@ import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
-import { Plus, Play, Pause, Square, Settings, Users, Clock, Calendar } from "lucide-react"
+import { Plus, Play, Pause, Square, Settings, Users, Clock, Calendar, Radio } from "lucide-react"
 
 interface Client {
   id: string
@@ -322,7 +322,7 @@ export function BroadcastManager({ clients }: BroadcastManagerProps) {
           <CardContent className="p-6">
             <div className="flex items-center space-x-2">
               <div className="p-2 bg-purple-100 rounded-lg">
-                <Calendar className="h-4 w-4 text-purple-600" />
+                <Radio className="h-4 w-4 text-purple-600" />
               </div>
               <div>
                 <p className="text-2xl font-bold">

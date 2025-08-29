@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
-import { Plus, Settings, Users, LayoutTemplate, Broadcast, Eye, Edit, Trash2 } from "lucide-react"
+import { Plus, Settings, Users, LayoutTemplate, Eye, Edit, Trash2, Radio } from "lucide-react"
 import { ClientForm } from "@/components/client-form"
 import { TemplateManager } from "@/components/template-manager"
 import { OverlayManager } from "@/components/overlay-manager"
@@ -99,7 +99,7 @@ export default function Dashboard() {
         <div className="flex h-16 items-center px-6">
           <div className="flex items-center space-x-4">
             <div className="flex items-center space-x-2">
-              <Broadcast className="h-6 w-6 text-primary" />
+              <Radio className="h-6 w-6 text-primary" />
               <h1 className="text-xl font-semibold">CG Overlay Studio</h1>
             </div>
             <Badge variant="secondary">Professional Broadcasting</Badge>
@@ -144,7 +144,7 @@ export default function Dashboard() {
                   value="broadcasts" 
                   className="w-full justify-start data-[state=active]:bg-accent"
                 >
-                  <Broadcast className="h-4 w-4 mr-2" />
+                  <Radio className="h-4 w-4 mr-2" />
                   Broadcasts
                 </TabsTrigger>
               </TabsList>

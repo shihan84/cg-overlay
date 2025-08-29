@@ -8,7 +8,9 @@ import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Switch } from "@/components/ui/switch"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
-import { Plus, Eye, Edit, Trash2, Play, Pause, Copy, ExternalLink } from "lucide-react"
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
+import { Plus, Eye, Edit, Trash2, Play, Pause, Copy, ExternalLink, Settings } from "lucide-react"
+import { OverlayControl } from "@/components/overlay-control"
 
 interface Client {
   id: string
@@ -28,6 +30,7 @@ interface Overlay {
   isVisible: boolean
   createdAt: string
   client?: Client
+  templateType?: string
 }
 
 interface OverlayManagerProps {
@@ -38,8 +41,9 @@ export function OverlayManager({ clients }: OverlayManagerProps) {
   const [searchTerm, setSearchTerm] = useState("")
   const [selectedClient, setSelectedClient] = useState("all")
   const [showActiveOnly, setShowActiveOnly] = useState(false)
+  const [selectedOverlay, setSelectedOverlay] = useState<Overlay | null>(null)
 
-  // Mock overlays data
+  // Mock overlays data with template types
   const overlays: Overlay[] = [
     {
       id: "1",
@@ -49,7 +53,8 @@ export function OverlayManager({ clients }: OverlayManagerProps) {
       isActive: true,
       isVisible: false,
       createdAt: "2024-01-15",
-      client: clients.find(c => c.id === "1")
+      client: clients.find(c => c.id === "1"),
+      templateType: "LOWER_THIRD"
     },
     {
       id: "2",
@@ -59,7 +64,8 @@ export function OverlayManager({ clients }: OverlayManagerProps) {
       isActive: true,
       isVisible: true,
       createdAt: "2024-01-16",
-      client: clients.find(c => c.id === "1")
+      client: clients.find(c => c.id === "1"),
+      templateType: "BREAKING_NEWS"
     },
     {
       id: "3",
@@ -69,7 +75,8 @@ export function OverlayManager({ clients }: OverlayManagerProps) {
       isActive: true,
       isVisible: false,
       createdAt: "2024-01-18",
-      client: clients.find(c => c.id === "2")
+      client: clients.find(c => c.id === "2"),
+      templateType: "SCOREBUG"
     },
     {
       id: "4",
@@ -79,7 +86,8 @@ export function OverlayManager({ clients }: OverlayManagerProps) {
       isActive: false,
       isVisible: false,
       createdAt: "2024-01-19",
-      client: clients.find(c => c.id === "3")
+      client: clients.find(c => c.id === "3"),
+      templateType: "WEATHER"
     }
   ]
 
@@ -102,8 +110,23 @@ export function OverlayManager({ clients }: OverlayManagerProps) {
   }
 
   const getOverlayUrl = (overlayId: string) => {
-    // In a real app, this would generate the actual URL for OBS
-    return `${window.location.origin}/overlay/${overlayId}`
+    const overlay = overlays.find(o => o.id === overlayId)
+    const templateType = overlay?.templateType || 'LOWER_THIRD'
+    return `${window.location.origin}/overlay/${overlayId}?type=${templateType}`
+  }
+
+  const getTemplateTypeLabel = (type?: string) => {
+    const labels = {
+      "LOWER_THIRD": "Lower Third",
+      "BREAKING_NEWS": "Breaking News",
+      "TICKER": "News Ticker",
+      "SCOREBUG": "Score Bug",
+      "WEATHER": "Weather Widget",
+      "FULLSCREEN": "Fullscreen",
+      "SOCIAL_MEDIA": "Social Media",
+      "LOGO_BUG": "Logo Bug"
+    }
+    return labels[type as keyof typeof labels] || type || "Unknown"
   }
 
   return (
@@ -175,17 +198,32 @@ export function OverlayManager({ clients }: OverlayManagerProps) {
                     <CardTitle className="text-lg">{overlay.name}</CardTitle>
                   </div>
                   <CardDescription>
-                    {overlay.client?.name} • Template ID: {overlay.templateId}
+                    {overlay.client?.name} • {getTemplateTypeLabel(overlay.templateType)}
                   </CardDescription>
                 </div>
                 <div className="flex space-x-1">
-                  <Button 
-                    variant="ghost" 
-                    size="sm"
-                    onClick={() => handleToggleVisibility(overlay.id)}
-                  >
-                    {overlay.isVisible ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4" />}
-                  </Button>
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <Button variant="ghost" size="sm" onClick={() => setSelectedOverlay(overlay)}>
+                        <Settings className="h-4 w-4" />
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+                      <DialogHeader>
+                        <DialogTitle>Overlay Control: {overlay.name}</DialogTitle>
+                        <DialogDescription>
+                          Real-time control for OBS Studio overlay
+                        </DialogDescription>
+                      </DialogHeader>
+                      {selectedOverlay && (
+                        <OverlayControl
+                          overlayId={selectedOverlay.id}
+                          templateType={selectedOverlay.templateType || 'LOWER_THIRD'}
+                          overlayName={selectedOverlay.name}
+                        />
+                      )}
+                    </DialogContent>
+                  </Dialog>
                   <Button variant="ghost" size="sm">
                     <Edit className="h-4 w-4" />
                   </Button>
@@ -221,7 +259,12 @@ export function OverlayManager({ clients }: OverlayManagerProps) {
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
                     <span className="text-sm font-medium">OBS URL:</span>
-                    <Button variant="ghost" size="sm" className="h-6 text-xs">
+                    <Button 
+                      variant="ghost" 
+                      size="sm" 
+                      className="h-6 text-xs"
+                      onClick={() => navigator.clipboard.writeText(getOverlayUrl(overlay.id))}
+                    >
                       <Copy className="h-3 w-3 mr-1" />
                       Copy
                     </Button>
@@ -232,18 +275,35 @@ export function OverlayManager({ clients }: OverlayManagerProps) {
                 </div>
 
                 <div className="flex space-x-2">
-                  <Button variant="outline" size="sm" className="flex-1">
-                    <ExternalLink className="h-4 w-4 mr-2" />
-                    Preview
+                  <Button variant="outline" size="sm" className="flex-1" asChild>
+                    <a href={getOverlayUrl(overlay.id)} target="_blank" rel="noopener noreferrer">
+                      <ExternalLink className="h-4 w-4 mr-2" />
+                      Preview
+                    </a>
                   </Button>
-                  <Button 
-                    variant={overlay.isVisible ? "destructive" : "default"} 
-                    size="sm" 
-                    className="flex-1"
-                    onClick={() => handleToggleVisibility(overlay.id)}
-                  >
-                    {overlay.isVisible ? "Hide" : "Show"}
-                  </Button>
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <Button variant="outline" size="sm" className="flex-1" onClick={() => setSelectedOverlay(overlay)}>
+                        <Settings className="h-4 w-4 mr-2" />
+                        Control
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+                      <DialogHeader>
+                        <DialogTitle>Overlay Control: {overlay.name}</DialogTitle>
+                        <DialogDescription>
+                          Real-time control for OBS Studio overlay
+                        </DialogDescription>
+                      </DialogHeader>
+                      {selectedOverlay && (
+                        <OverlayControl
+                          overlayId={selectedOverlay.id}
+                          templateType={selectedOverlay.templateType || 'LOWER_THIRD'}
+                          overlayName={selectedOverlay.name}
+                        />
+                      )}
+                    </DialogContent>
+                  </Dialog>
                 </div>
               </div>
             </CardContent>
