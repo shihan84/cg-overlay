@@ -1,141 +1,283 @@
-# 🚀 Welcome to Z.ai Code Scaffold
+# CG Overlay Studio
 
-A modern, production-ready web application scaffold powered by cutting-edge technologies, designed to accelerate your development with [Z.ai](https://chat.z.ai)'s AI-powered coding assistance.
+A professional browser-based CG (Character Generator) overlay system for OBS Studio, inspired by SPX CG and UNO broadcasting templates. This system provides real-time control over broadcast graphics with a modern, intuitive interface.
 
-## ✨ Technology Stack
+## Features
 
-This scaffold provides a robust foundation built with:
+### 🎬 Professional Broadcasting Templates
+- **Lower Thirds** - Classic news-style name titles and information
+- **Breaking News** - Animated urgent news banners with pulsing effects
+- **News Ticker** - Scrolling headlines for continuous information
+- **Score Bug** - Live sports scores with team logos and timing
+- **Weather Widget** - Current conditions and forecasts
+- **Fullscreen Graphics** - Complete screen overlays for major announcements
+- **Social Media** - Live social media integration
+- **Logo Bug** - Channel branding and identification
 
-### 🎯 Core Framework
-- **⚡ Next.js 15** - The React framework for production with App Router
-- **📘 TypeScript 5** - Type-safe JavaScript for better developer experience
-- **🎨 Tailwind CSS 4** - Utility-first CSS framework for rapid UI development
+### 🚀 Real-time Control
+- **Live Updates** - Change overlay content instantly during broadcasts
+- **WebSocket Communication** - Bidirectional real-time data sync
+- **OBS Integration** - Direct browser source URLs for OBS Studio
+- **Preview System** - Test overlays before going live
+- **Smooth Animations** - Professional transitions and effects
 
-### 🧩 UI Components & Styling
-- **🧩 shadcn/ui** - High-quality, accessible components built on Radix UI
-- **🎯 Lucide React** - Beautiful & consistent icon library
-- **🌈 Framer Motion** - Production-ready motion library for React
-- **🎨 Next Themes** - Perfect dark mode in 2 lines of code
+### 🏢 Client Management
+- **Multi-client Support** - Manage different broadcasting clients
+- **Branding** - Custom colors and logos per client
+- **Organization** - Group overlays by client and broadcast
+- **Permissions** - Client-specific access control
 
-### 📋 Forms & Validation
-- **🎣 React Hook Form** - Performant forms with easy validation
-- **✅ Zod** - TypeScript-first schema validation
+### 📊 Dashboard Features
+- **Modern UI** - Clean, responsive interface with shadcn/ui
+- **Template Library** - Browse and manage overlay templates
+- **Overlay Control** - Real-time editing and visibility control
+- **Broadcast Sessions** - Organize overlays into scheduled broadcasts
+- **Statistics** - Monitor active overlays and broadcast status
 
-### 🔄 State Management & Data Fetching
-- **🐻 Zustand** - Simple, scalable state management
-- **🔄 TanStack Query** - Powerful data synchronization for React
-- **🌐 Axios** - Promise-based HTTP client
+## Technology Stack
 
-### 🗄️ Database & Backend
-- **🗄️ Prisma** - Next-generation Node.js and TypeScript ORM
-- **🔐 NextAuth.js** - Complete open-source authentication solution
+### Frontend
+- **Next.js 15** - React framework with App Router
+- **TypeScript** - Type-safe development
+- **Tailwind CSS** - Utility-first styling
+- **shadcn/ui** - Modern UI components
+- **Socket.IO Client** - Real-time communication
+- **Framer Motion** - Smooth animations
 
-### 🎨 Advanced UI Features
-- **📊 TanStack Table** - Headless UI for building tables and datagrids
-- **🖱️ DND Kit** - Modern drag and drop toolkit for React
-- **📊 Recharts** - Redefined chart library built with React and D3
-- **🖼️ Sharp** - High performance image processing
+### Backend
+- **Node.js** - Server runtime
+- **Express** - Web framework
+- **Socket.IO** - WebSocket server
+- **Prisma ORM** - Database management
+- **SQLite** - Lightweight database
 
-### 🌍 Internationalization & Utilities
-- **🌍 Next Intl** - Internationalization library for Next.js
-- **📅 Date-fns** - Modern JavaScript date utility library
-- **🪝 ReactUse** - Collection of essential React hooks for modern development
+### Infrastructure
+- **RESTful API** - CRUD operations
+- **WebSocket Server** - Real-time updates
+- **Database Seeding** - Pre-populated templates
+- **Type Safety** - End-to-end TypeScript
 
-## 🎯 Why This Scaffold?
+## Quick Start
 
-- **🏎️ Fast Development** - Pre-configured tooling and best practices
-- **🎨 Beautiful UI** - Complete shadcn/ui component library with advanced interactions
-- **🔒 Type Safety** - Full TypeScript configuration with Zod validation
-- **📱 Responsive** - Mobile-first design principles with smooth animations
-- **🗄️ Database Ready** - Prisma ORM configured for rapid backend development
-- **🔐 Auth Included** - NextAuth.js for secure authentication flows
-- **📊 Data Visualization** - Charts, tables, and drag-and-drop functionality
-- **🌍 i18n Ready** - Multi-language support with Next Intl
-- **🚀 Production Ready** - Optimized build and deployment settings
-- **🤖 AI-Friendly** - Structured codebase perfect for AI assistance
+### Prerequisites
+- Node.js 18+ 
+- npm or yarn
 
-## 🚀 Quick Start
+### Installation
 
-```bash
-# Install dependencies
-npm install
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/shihan84/cg-overlay.git
+   cd cg-overlay
+   ```
 
-# Start development server
-npm run dev
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
 
-# Build for production
-npm run build
+3. **Set up the database**
+   ```bash
+   npm run db:push
+   npm run db:seed
+   ```
 
-# Start production server
-npm start
-```
+4. **Start the development server**
+   ```bash
+   npm run dev
+   ```
 
-Open [http://localhost:3000](http://localhost:3000) to see your application running.
+5. **Open your browser**
+   Navigate to [http://localhost:3000](http://localhost:3000)
 
-## 🤖 Powered by Z.ai
+## OBS Studio Integration
 
-This scaffold is optimized for use with [Z.ai](https://chat.z.ai) - your AI assistant for:
+### Adding Overlays to OBS
 
-- **💻 Code Generation** - Generate components, pages, and features instantly
-- **🎨 UI Development** - Create beautiful interfaces with AI assistance  
-- **🔧 Bug Fixing** - Identify and resolve issues with intelligent suggestions
-- **📝 Documentation** - Auto-generate comprehensive documentation
-- **🚀 Optimization** - Performance improvements and best practices
+1. **Create Browser Source**
+   - In OBS, right-click in your scene
+   - Select "Add" → "Browser"
 
-Ready to build something amazing? Start chatting with Z.ai at [chat.z.ai](https://chat.z.ai) and experience the future of AI-powered development!
+2. **Configure Source**
+   - Copy the overlay URL from the dashboard
+   - Paste it into the URL field
+   - Set width and height (typically 1920x1080)
 
-## 📁 Project Structure
+3. **Customize Settings**
+   - Enable "Refresh browser when scene becomes active"
+   - Set custom CSS if needed
+   - Configure framerate (30 or 60 FPS)
+
+### Real-time Control
+
+1. **Open Overlay Control**
+   - Go to the Overlay Management tab
+   - Click "Control" on any overlay
+   - Use the live control panel to update content
+
+2. **Live Updates**
+   - Changes appear instantly in OBS
+   - Show/hide overlays with smooth transitions
+   - Modify colors, text, and styling in real-time
+
+## Project Structure
 
 ```
 src/
-├── app/                 # Next.js App Router pages
-├── components/          # Reusable React components
-│   └── ui/             # shadcn/ui components
-├── hooks/              # Custom React hooks
-└── lib/                # Utility functions and configurations
+├── app/
+│   ├── page.tsx                    # Main dashboard
+│   ├── overlay/[id]/page.tsx        # OBS overlay display
+│   └── api/                        # REST API endpoints
+├── components/
+│   ├── client-form.tsx             # Client management
+│   ├── template-manager.tsx        # Template library
+│   ├── overlay-manager.tsx         # Overlay management
+│   ├── broadcast-manager.tsx       # Broadcast sessions
+│   ├── overlay-control.tsx         # Real-time control
+│   └── template-preview.tsx        # Template preview
+├── lib/
+│   ├── socket.ts                   # WebSocket server
+│   ├── db.ts                      # Database client
+│   └── seed.ts                    # Database seeding
+└── prisma/
+    └── schema.prisma               # Database schema
 ```
 
-## 🎨 Available Features & Components
+## API Endpoints
 
-This scaffold includes a comprehensive set of modern web development tools:
+### Clients
+- `GET /api/client` - Get all clients
+- `POST /api/client` - Create new client
+- `GET /api/client/[id]` - Get specific client
+- `PUT /api/client/[id]` - Update client
+- `DELETE /api/client/[id]` - Delete client
 
-### 🧩 UI Components (shadcn/ui)
-- **Layout**: Card, Separator, Aspect Ratio, Resizable Panels
-- **Forms**: Input, Textarea, Select, Checkbox, Radio Group, Switch
-- **Feedback**: Alert, Toast (Sonner), Progress, Skeleton
-- **Navigation**: Breadcrumb, Menubar, Navigation Menu, Pagination
-- **Overlay**: Dialog, Sheet, Popover, Tooltip, Hover Card
-- **Data Display**: Badge, Avatar, Calendar
+### Templates
+- `GET /api/template` - Get all templates
+- `POST /api/template` - Create new template
 
-### 📊 Advanced Data Features
-- **Tables**: Powerful data tables with sorting, filtering, pagination (TanStack Table)
-- **Charts**: Beautiful visualizations with Recharts
-- **Forms**: Type-safe forms with React Hook Form + Zod validation
+### Overlays
+- `GET /api/overlay` - Get all overlays
+- `POST /api/overlay` - Create new overlay
+- `GET /api/overlay/[id]` - Get specific overlay
+- `PUT /api/overlay/[id]` - Update overlay
+- `DELETE /api/overlay/[id]` - Delete overlay
 
-### 🎨 Interactive Features
-- **Animations**: Smooth micro-interactions with Framer Motion
-- **Drag & Drop**: Modern drag-and-drop functionality with DND Kit
-- **Theme Switching**: Built-in dark/light mode support
+## WebSocket Events
 
-### 🔐 Backend Integration
-- **Authentication**: Ready-to-use auth flows with NextAuth.js
-- **Database**: Type-safe database operations with Prisma
-- **API Client**: HTTP requests with Axios + TanStack Query
-- **State Management**: Simple and scalable with Zustand
+### Client to Server
+- `join-overlay` - Join overlay room
+- `update-overlay` - Update overlay data
+- `toggle-visibility` - Show/hide overlay
+- `update-template-config` - Update template configuration
 
-### 🌍 Production Features
-- **Internationalization**: Multi-language support with Next Intl
-- **Image Optimization**: Automatic image processing with Sharp
-- **Type Safety**: End-to-end TypeScript with Zod validation
-- **Essential Hooks**: 100+ useful React hooks with ReactUse for common patterns
+### Server to Client
+- `overlay-update` - Overlay data changed
+- `overlay-visibility` - Visibility status changed
+- `template-config` - Template configuration updated
 
-## 🤝 Get Started with Z.ai
+## Configuration
 
-1. **Clone this scaffold** to jumpstart your project
-2. **Visit [chat.z.ai](https://chat.z.ai)** to access your AI coding assistant
-3. **Start building** with intelligent code generation and assistance
-4. **Deploy with confidence** using the production-ready setup
+### Environment Variables
+Create a `.env.local` file:
+
+```env
+DATABASE_URL="file:./dev.db"
+NEXT_PUBLIC_SOCKET_URL="http://localhost:3001"
+```
+
+### Database Configuration
+The system uses SQLite by default. To use a different database:
+
+1. Update `DATABASE_URL` in `.env.local`
+2. Install the appropriate database driver
+3. Update `schema.prisma` if needed
+4. Run `npm run db:push`
+
+## Templates
+
+### Included Templates
+
+1. **Classic Lower Third**
+   - Professional news-style overlay
+   - Fields: title, subtitle, text, image URL
+
+2. **Breaking News Banner**
+   - Animated urgent news alert
+   - Fields: headline, description
+
+3. **News Ticker**
+   - Scrolling headlines
+   - Fields: ticker text
+
+4. **Sports Score Bug**
+   - Live sports scores
+   - Fields: team A score, time, team B score
+
+5. **Weather Widget**
+   - Current conditions
+   - Fields: temperature, conditions
+
+### Custom Templates
+
+Create custom templates by:
+
+1. Adding template records to the database
+2. Defining HTML/CSS content
+3. Configuring form fields
+4. Setting up validation rules
+
+## Deployment
+
+### Production Build
+```bash
+npm run build
+npm run start
+```
+
+### Docker Deployment
+```dockerfile
+FROM node:18-alpine
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci --only=production
+COPY . .
+RUN npm run build
+EXPOSE 3000
+CMD ["npm", "start"]
+```
+
+### Environment Setup
+- Set `NODE_ENV=production`
+- Configure production database URL
+- Set up proper WebSocket server URL
+- Configure CORS for production domains
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Add tests if applicable
+5. Submit a pull request
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Support
+
+For issues and questions:
+- Create an issue on GitHub
+- Check the documentation
+- Review the code comments
+
+## Acknowledgments
+
+- Inspired by SPX CG and UNO broadcasting systems
+- Built with modern web technologies
+- Designed for professional broadcasting environments
 
 ---
 
-Built with ❤️ for the developer community. Supercharged by [Z.ai](https://chat.z.ai) 🚀
+**CG Overlay Studio** - Professional broadcasting graphics made simple.
